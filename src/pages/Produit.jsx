@@ -34,12 +34,12 @@ export default function Produit({ name, price, image, id, logo, pribarrer, descr
 const handleBuy = async () => {
   const item = { id, name, price, image, logo, pribarrer, description, prix_livraison };
 
-  // 1. Ajout dans le state (store global)
+  
  dispatch({ type: "ADD", payload: item });
  
 
   
-  // 2. Si l'utilisateur n'est pas connecté → stockage dans le cookie
+  
   if (!autentifier) {
     let panierLocal = [];
 
@@ -61,18 +61,18 @@ const handleBuy = async () => {
       
     }
     
-    //saveGuestCart(panierLocal)
+    
     
 
   } else {
-    // 3. Utilisateur connecté → ajout côté backend
+    
     const token = Cookies.get("token");
     console.log("Token actuel :", token);
 
 
     if (token) {
       try {
-        const response = await fetch("http://localhost:8000/api/shop/cart-items/", {
+        const response = await fetch("/.netlify/functions/panieritem", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

@@ -59,7 +59,7 @@ export const CartProvider = ({ children }) => {
     try {
       const items = JSON.parse(guestCart);
       for (const item of items) {
-        await fetch("http://localhost:8000/api/shop/cart-items/", {
+        await fetch("/.netlify/functions/panieritem", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -95,15 +95,15 @@ export const CartProvider = ({ children }) => {
 
     await mergeGuestCartWithBackend();
 
-    fetch("http://localhost:8000/api/shop/cart-items/", {
+    fetch("/.netlify/functions/panieritem", {
       headers: { Authorization: `Token ${token}` },
     })
       .then(res => res.json())
       .then(data => {
-        // Correction ici : utiliser item.product comme ID
+        
         const cartData = data.map(item => ({
-          id: item.product, // ✅ ID du produit
-          cartItemId: item.id, // ID du panier pour les mises à jour
+          id: item.product, 
+          cartItemId: item.id, 
           quantiter: item.quantity,
           name: item.product_name,
           price: item.product_price,
@@ -129,7 +129,7 @@ export const CartProvider = ({ children }) => {
       const cartItemId = cartItem?.cartItemId;
 
       if (cartItemId) {
-        await fetch(`http://localhost:8000/api/shop/cart-items/${cartItemId}/`, {
+        await fetch(`/.netlify/functions/panieritem/${cartItemId}/`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -150,7 +150,7 @@ export const CartProvider = ({ children }) => {
 
     if (token && cartItem?.cartItemId) {
       try {
-        await fetch(`http://localhost:8000/api/shop/cart-items/${cartItem.cartItemId}/`, {
+        await fetch(`/.netlify/functions/panieritem/${cartItem.cartItemId}/`, {
           method: "DELETE",
           headers: { Authorization: `Token ${token}` },
         });

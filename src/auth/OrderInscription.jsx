@@ -87,7 +87,7 @@ export default function OrderInscription({ changeModal, setChangeModal }) {
 
     try {
       
-      const res = await fetch("http://localhost:8000/api/auth/registration/", {
+      const res = await fetch("/.netlify/functions/registration", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

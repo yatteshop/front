@@ -65,7 +65,7 @@ export default function Client() {
 
       try {
         
-        const userRes = await fetch("http://localhost:8000/api/auth/user/", {
+        const userRes = await fetch("/.netlify/functions/user", {
           headers: { Authorization: `Token ${token}` },
         });
         if (userRes.ok) {
@@ -74,7 +74,7 @@ export default function Client() {
         }
 
         
-        const orderRes = await fetch("http://localhost:8000/api/shop/orders/", {
+        const orderRes = await fetch("/.netlify/functions/commande", {
           headers: { Authorization: `Token ${token}` },
         });
         let orderData = [];
@@ -85,7 +85,7 @@ export default function Client() {
 
         
         const itemsRes = await fetch(
-          "http://localhost:8000/api/shop/order-items/",
+          "/.netlify/functions/commandeitem",
           {
             headers: { Authorization: `Token ${token}` },
           }

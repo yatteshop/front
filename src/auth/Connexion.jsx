@@ -24,7 +24,7 @@ export default function Connexion({ changeModal, setChangeModal }) {
     setLoading(true)
     
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login/", {
+      const response = await fetch("/.netlify/functions/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

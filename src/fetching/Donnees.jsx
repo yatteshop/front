@@ -1,5 +1,5 @@
 export const Donnees = async ()=>{
-  const res = await fetch("http://localhost:8000/api/shop/produit/")
+  const res = await fetch("/.netlify/functions/produits")
   const response = await res.json()
   
   return response

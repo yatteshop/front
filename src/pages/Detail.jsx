@@ -53,8 +53,6 @@ export default function Detail(){
     }, 4000);
   };
   
-  //debutcat
-  
   const navigate = useNavigate()
   
   const [cat, setCat] = useState([])
@@ -79,8 +77,6 @@ export default function Detail(){
     setSelectedCategory(nom)
     navigate("/produits")
   }
-  
-  //finCat
   
   const {panier, dispatch} = useCart()
   
@@ -131,18 +127,17 @@ export default function Detail(){
       
     }
     
-    //saveGuestCart(panierLocal)
     
 
   } else {
-    // 3. Utilisateur connecté → ajout côté backend
+    
     const token = Cookies.get("token");
     console.log("Token actuel :", token);
 
 
     if (token) {
       try {
-        const response = await fetch("http://localhost:8000/api/shop/cart-items/", {
+        const response = await fetch("/.netlify/functions/panieritem", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

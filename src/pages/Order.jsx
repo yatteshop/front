@@ -51,7 +51,7 @@ export default function Order(){
   
  const takeUser = async ()=>{
    const token = Cookies.get("token")
-   const res = await fetch("http://localhost:8000/api/auth/user/", {
+   const res = await fetch("/.netlify/functions/user", {
       headers: {
         Authorization: `Token ${token}`,
       },
@@ -85,15 +85,15 @@ export default function Order(){
   }
 
   try {
-    // 2) Construire le payload avec `user: user.pk`
+    
     const orderPayload = {
-      user: currentUser.pk,     // ← ici on passe pk, pas id
+      user: currentUser.pk,   
       total_price: total,
       payment_method: "cash",
     };
 
-    // 3) Envoyer POST /api/shop/orders/
-    const orderRes = await fetch("http://localhost:8000/api/shop/orders/", {
+    
+    const orderRes = await fetch("/.netlify/functions/commande", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default function Order(){
     const newOrder = await orderRes.json();
     const newOrderId = newOrder.id;
 
-    // 4) Créer les OrderItem pour chaque article du panier
+
     for (let item of panier) {
       const oiPayload = {
         order: newOrderId,
@@ -122,7 +122,7 @@ export default function Order(){
       };
 
       const oiRes = await fetch(
-        "http://localhost:8000/api/shop/order-items/",
+        "/.netlify/functions/commandeitem",
         {
           method: "POST",
           headers: {
@@ -146,11 +146,11 @@ export default function Order(){
       }
     }
 
-    // 5) Supprimer chaque CartItem en base
+    
     for (let item of panier) {
       if (item.cartItemId) {
         const deleteRes = await fetch(
-          `http://localhost:8000/api/shop/cart-items/${item.cartItemId}/`,
+          `/.netlify/functions/panieritem/${item.cartItemId}/`,
           {
             method: "DELETE",
             headers: { "Authorization": `Token ${token}` },
