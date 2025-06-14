@@ -1,9 +1,4 @@
-[build]
-  command   = "npm run build"     
-  publish   = "dist/client"       
-  functions = "netlify/functions" 
 [[redirects]]
-  from   = "/*"
-  to     = "/.netlify/functions/server"
+  from = "/*"
+  to   = "/index.html"
   status = 200
-  force  = true
