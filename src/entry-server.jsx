@@ -10,7 +10,7 @@ import {StaticRouter} from "react-router"
 export function render(_url, options) {
   return renderToPipeableStream(
     <StrictMode>
-      <StaticRouter>
+      <StaticRouter location={_url}>
         <App />
       </StaticRouter>
     </StrictMode>,
