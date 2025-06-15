@@ -8,11 +8,13 @@ import { requireAuth } from './auth-middleware.js';
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const templateHtml = isProduction
-  ? await fs.readFile(path.resolve(__dirname, 'dist/client/index.html'), 'utf-8')
-  : ''
+
+
+
+
 
 
 
@@ -29,6 +31,12 @@ const templateHtml = isProduction
   ? await fs.readFile('./dist/client/index.html', 'utf-8')
   : ''
 */
+
+const templateHtml = isProduction
+  ? await fs.readFile(path.resolve(__dirname, 'dist/client/index.html'), 'utf-8')
+  : ''
+
+
 // Create http server
 const app = express()
 
