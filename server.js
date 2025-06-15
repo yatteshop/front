@@ -5,6 +5,14 @@ import cookieParser from 'cookie-parser';
 import { requireAuth } from './auth-middleware.js';
 
 
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+const templateHtml = isProduction
+  ? await fs.readFile(path.resolve(__dirname, 'dist/client/index.html'), 'utf-8')
+  : ''
 
 
 
@@ -15,10 +23,12 @@ const base = process.env.BASE || '/'
 const ABORT_DELAY = 10000
 
 // Cached production assets
+/*
+
 const templateHtml = isProduction
   ? await fs.readFile('./dist/client/index.html', 'utf-8')
   : ''
-
+*/
 // Create http server
 const app = express()
 
